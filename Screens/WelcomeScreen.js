@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import {StyleSheet, View, Text, Button, Image} from 'react-native';
 
 export default function WelcomeScreen({ navigation }) {
     return (
         <View style={styles.container}>
+            <Image source={require('../assets/457933.jpg')} style={styles.image} />
             <Text style={styles.title}>Welcome to React Native To Do list</Text>
             <Button
                 title="Todo lijst"

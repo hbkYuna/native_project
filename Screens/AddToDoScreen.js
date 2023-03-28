@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
+import {StyleSheet, View, Text, TextInput, Button, Image} from 'react-native';
 import { TodoContext } from '../conexts/TodoContext';
 
 export default function AddTodoScreen({ navigation }) {
@@ -23,6 +23,8 @@ export default function AddTodoScreen({ navigation }) {
                 placeholder="Enter a new to-do"
             />
             <Button title="Add" onPress={handleAddTodo} />
+            <Image source={require('../assets/383342.jpg')} style={styles.image} />
+
         </View>
     );
 }
