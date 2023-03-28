@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
+import { TodoContext } from '../conexts/TodoContext';
 
 export default function OverviewScreen({ navigation }) {
-    const [todoList, setTodoList] = useState([]);
-
-    const handleAddTodo = (todo) => {
-        setTodoList([...todoList, todo]);
-    };
-
+    const { todoList, setTodoList } = useContext(TodoContext);
     return (
         <View style={styles.container}>
             <Text style={styles.title}>To-Do List</Text>
@@ -26,7 +22,7 @@ export default function OverviewScreen({ navigation }) {
             )}
             <Button
                 title="Add To-Do"
-                onPress={() => navigation.navigate('AddTodo', { handleAddTodo })}
+                onPress={() => navigation.navigate('AddTodo', { setTodoList })}
             />
         </View>
     );
