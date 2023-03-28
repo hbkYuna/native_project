@@ -4,11 +4,22 @@ import { StyleSheet, View, Text, Button } from 'react-native';
 export default function WelcomeScreen({ navigation }) {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Welcome to the To-Do List App!</Text>
+            <Text style={styles.title}>Welcome to React Native To Do list</Text>
             <Button
-                title="Get Started"
+                title="Todo lijst"
                 onPress={() => navigation.navigate('Overview')}
             />
+             <Text style={styles.title}></Text>
+                  <Button
+                    title="Contact Us"
+                    onPress={() => navigation.navigate('Contact')}
+                  />
+
+             <Text style={styles.title}></Text>
+                   <Button
+                     title="Crypto"
+                     onPress={() => navigation.navigate('Crypto')}
+                   />
         </View>
     );
 }

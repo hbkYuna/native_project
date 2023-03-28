@@ -7,19 +7,22 @@ export default function AddTodoScreen({ navigation }) {
     const { setTodoList } = useContext(TodoContext);
 
     const handleAddTodo = () => {
-        setTodoList((prevTodoList) => [...prevTodoList, todo]);
-        navigation.goBack();
+        if (todo !== '') {
+            setTodoList(prevTodoList => [...prevTodoList, todo]);
+            navigation.goBack();
+        }
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.label}>What do you want to do?</Text>
+            <Text style={styles.title}>Add a To-Do</Text>
             <TextInput
                 style={styles.input}
-                onChangeText={(text) => setTodo(text)}
+                onChangeText={text => setTodo(text)}
                 value={todo}
+                placeholder="Enter a new to-do"
             />
-            <Button title="Add Todo" onPress={handleAddTodo} />
+            <Button title="Add" onPress={handleAddTodo} />
         </View>
     );
 }
@@ -29,18 +32,18 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 16,
     },
-    label: {
+    title: {
         fontSize: 24,
         marginBottom: 16,
     },
     input: {
         height: 40,
-        width: '100%',
+        width: '80%',
         borderColor: 'gray',
         borderWidth: 1,
+        borderRadius: 5,
+        padding: 10,
         marginBottom: 16,
-        padding: 8,
     },
 });

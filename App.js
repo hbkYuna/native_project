@@ -10,6 +10,9 @@ import WelcomeScreen from './Screens/WelcomeScreen';
 import OverviewScreen from './Screens/OverviewScreen';
 import DetailScreen from './Screens/DetailScreen';
 import AddToDoScreen from './Screens/AddToDoScreen';
+import ContactScreen from './Screens/ContactScreen'
+import CryptoScreen from './Screens/CryptoScreen'
+
 
 const Stack = createStackNavigator();
 
@@ -23,11 +26,13 @@ export default function App() {
     return (
         <NavigationContainer>
             <TodoContext.Provider value={{ todoList, setTodoList }}>
-                <Stack.Navigator initialRouteName="Overview">
+                <Stack.Navigator initialRouteName="Welcome">
                     <Stack.Screen name="Overview" component={OverviewScreen} />
+                    <Stack.Screen name="Detail" component={DetailScreen} />
                     <Stack.Screen name="AddTodo" component={AddToDoScreen} />
                     <Stack.Screen name="Welcome" component={WelcomeScreen} />
-                    <Stack.Screen name="Detail" component={DetailScreen} />
+                    <Stack.Screen name="Contact" component={ContactScreen} />
+                    <Stack.Screen name="Crypto" component={CryptoScreen} />
                 </Stack.Navigator>
             </TodoContext.Provider>
         </NavigationContainer>
