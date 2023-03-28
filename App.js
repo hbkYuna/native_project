@@ -7,6 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import WelcomeScreen from './Screens/WelcomeScreen';
 import OverviewScreen from './Screens/OverviewScreen';
 import DetailScreen from './Screens/DetailScreen';
+import AddToDoScreen from './Screens/AddToDoScreen'
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,8 @@ export default function App() {
                     <Stack.Screen name="Welcome" component={WelcomeScreen} />
                     <Stack.Screen name="Overview" component={OverviewScreen} />
                     <Stack.Screen name="Detail" component={DetailScreen} />
+                    <Stack.Screen name="AddTodo" component={AddToDoScreen} />
+
                 </Stack.Navigator>
             </NavigationContainer>
         </SafeAreaProvider>
