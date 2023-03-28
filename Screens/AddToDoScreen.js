@@ -1,40 +1,47 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
+import { RadioButton } from 'react-native-paper';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { TodoContext } from '../conexts/TodoContext';
 
-export default function AddTodoScreen({ navigation, route }) {
-    const [todoType, setTodoType] = useState('Work');
+export default function AddTodoScreen() {
+    const navigation = useNavigation();
+    const route = useRoute();
+    const { handleAddTodo } = route.params;
+    const { todoList, setTodoList } = React.useContext(TodoContext);
+
+    const [type, setType] = useState('');
     const [subject, setSubject] = useState('');
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState('');
     const [description, setDescription] = useState('');
 
-    const handleAddTodo = () => {
+    const handleSubmit = () => {
+        const newTodo = { type, subject, date, description };
+        setTodoList([...todoList, newTodo]);
+        handleAddTodo();
         navigation.goBack();
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Add a To-Do Item</Text>
-            <View style={styles.formControl}>
+            <View style={styles.field}>
                 <Text style={styles.label}>Choose a Type:</Text>
-                <View style={styles.radioButtons}>
-                    <Button
-                        title="Work"
-                        onPress={() => setTodoType('Work')}
-                        color={todoType === 'Work' ? '#007AFF' : 'gray'}
-                    />
-                    <Button
-                        title="School"
-                        onPress={() => setTodoType('School')}
-                        color={todoType === 'School' ? '#007AFF' : 'gray'}
-                    />
-                    <Button
-                        title="Personal"
-                        onPress={() => setTodoType('Personal')}
-                        color={todoType === 'Personal' ? '#007AFF' : 'gray'}
-                    />
-                </View>
+                <RadioButton.Group onValueChange={setType} value={type}>
+                    <View style={styles.radioOption}>
+                        <RadioButton value="Work" />
+                        <Text style={styles.radioLabel}>Work</Text>
+                    </View>
+                    <View style={styles.radioOption}>
+                        <RadioButton value="School" />
+                        <Text style={styles.radioLabel}>School</Text>
+                    </View>
+                    <View style={styles.radioOption}>
+                        <RadioButton value="Personal" />
+                        <Text style={styles.radioLabel}>Personal</Text>
+                    </View>
+                </RadioButton.Group>
             </View>
-            <View style={styles.formControl}>
+            <View style={styles.field}>
                 <Text style={styles.label}>Subject:</Text>
                 <TextInput
                     style={styles.input}
@@ -42,16 +49,15 @@ export default function AddTodoScreen({ navigation, route }) {
                     value={subject}
                 />
             </View>
-            <View style={styles.formControl}>
+            <View style={styles.field}>
                 <Text style={styles.label}>Date:</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setDate}
-                    value={date.toString()}
-                    keyboardType="numeric"
+                    value={date}
                 />
             </View>
-            <View style={styles.formControl}>
+            <View style={styles.field}>
                 <Text style={styles.label}>Description:</Text>
                 <TextInput
                     style={styles.input}
@@ -60,7 +66,9 @@ export default function AddTodoScreen({ navigation, route }) {
                     maxLength={30}
                 />
             </View>
-            <Button title="Add Todo" onPress={handleAddTodo} />
+            <View style={styles.buttonContainer}>
+                <Button title="Add Todo" onPress={handleSubmit} />
+            </View>
         </View>
     );
 }
@@ -68,30 +76,38 @@ export default function AddTodoScreen({ navigation, route }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
         backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 20,
     },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 20,
-    },
-    formControl: {
-        marginBottom: 10,
+    field: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 10,
     },
     label: {
-        fontSize: 18,
-        marginBottom: 5,
+        marginRight: 10,
+        fontSize: 16,
     },
     input: {
+        flex: 1,
         height: 40,
         borderColor: 'gray',
         borderWidth: 1,
+        borderRadius: 5,
         paddingHorizontal: 10,
     },
-    radioButtons: {
+    radioOption: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 10,
+        alignItems: 'center',
+        marginRight: 10,
+    },
+    radioLabel: {
+        fontSize: 16,
+    },
+    buttonContainer: {
+        marginTop: 20,
+        width: '100%',
     },
 });
